@@ -2,6 +2,7 @@ package com.giulianobortolassi.waes.diff;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Repository;
 
 import java.util.HashMap;
@@ -13,7 +14,7 @@ import java.util.Optional;
  * spring data framework.
  *
  */
-
+@Profile("mongodb")
 @Repository
 public class DiffRequestMongoDBRepository implements DiffRequestRepository {
 

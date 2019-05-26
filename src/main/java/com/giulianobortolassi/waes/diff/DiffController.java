@@ -16,8 +16,6 @@ public class DiffController {
     private Base64Comparator comparator;
 
     @Autowired
-    //@Qualifier("inMemoryDiffRequestRepository")
-    @Qualifier("diffRequestMongoDBRepository")
     private DiffRequestRepository repository;
 
 

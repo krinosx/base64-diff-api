@@ -1,12 +1,14 @@
 package com.giulianobortolassi.waes.diff;
 
 
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Repository;
 
 import java.util.HashMap;
 
+@Profile("default")
 @Repository
-public class InMemoryDiffRequestRepository implements DiffRequestRepository {
+public class DiffRequestInMemoryRepository implements DiffRequestRepository {
 
     private HashMap<String, DiffRequest> localDatabase = new HashMap<>();
 
