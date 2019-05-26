@@ -16,16 +16,16 @@ public class Base64ComparatorTest {
         document_3_base64 = Base64.getEncoder().encodeToString(document_3.getBytes());
     }
 
-    Base64Comparator comparator = new Base64Comparator();
+    Base64Comparator comparator = new DefaultBase64Comparator();
 
     @Test
     public void documentsMatchTest(){
 
-        ComparasionResult result = comparator.compare(document_1_base64, document_1_base64);
+        ComparisionResult result = comparator.compare(document_1_base64, document_1_base64);
 
         assertNotNull("Result is expected to not be null.", result );
         assertTrue("Result is expected to be a match.", result.isMatch() );
-        assertEquals("", result.getResultType(), ComparasionResult.ResultType.MATCH );
+        assertEquals("", result.getResultType(), ComparisionResult.ResultType.MATCH );
         assertEquals( -1, result.getMismatchOffset() );
         assertEquals(0, result.getMatchLength());
         assertNull(result.getMismatchChars());
@@ -36,11 +36,11 @@ public class Base64ComparatorTest {
      */
     @Test
     public void documentsMismatchTest(){
-        ComparasionResult result = comparator.compare(document_1_base64, document_2_base64);
+        ComparisionResult result = comparator.compare(document_1_base64, document_2_base64);
 
         assertNotNull("Result is expected to not be null.", result );
         assertTrue("Result is expected to be a mismatch.", !result.isMatch() );
-        assertEquals("", ComparasionResult.ResultType.CONTENT_MISMATCH, result.getResultType());
+        assertEquals("", ComparisionResult.ResultType.CONTENT_MISMATCH, result.getResultType());
         assertEquals( 92, result.getMismatchOffset() );
         assertEquals(3, result.getMatchLength());
         assertNotNull(result.getMismatchChars());
@@ -51,11 +51,11 @@ public class Base64ComparatorTest {
      */
     @Test
     public void documentsSizeMismatchTest(){
-        ComparasionResult result = comparator.compare(document_1_base64, document_3_base64);
+        ComparisionResult result = comparator.compare(document_1_base64, document_3_base64);
 
         assertNotNull("Result is expected to not be null.", result );
         assertTrue("Result is expected to be a mismatch.", !result.isMatch() );
-        assertEquals("", ComparasionResult.ResultType.SIZE_MISMATCH, result.getResultType());
+        assertEquals("", ComparisionResult.ResultType.SIZE_MISMATCH, result.getResultType());
         assertEquals( -1, result.getMismatchOffset() );
         assertEquals(0, result.getMatchLength());
         assertNull(result.getMismatchChars());

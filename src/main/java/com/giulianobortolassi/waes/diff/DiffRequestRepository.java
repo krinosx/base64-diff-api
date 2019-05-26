@@ -14,6 +14,11 @@ package com.giulianobortolassi.waes.diff;
  * It will also make easier to mock the data store mechanism when we do functional testing or
  * unit testing.
  *
+ * This api version ships with two implementations
+ *  - DiffRequestMongoDBRepository: A MongoDB repository using SpringDataMongoDB API.
+ *      See {@link DiffRequestMongoDBRepository} for details on usage
+ *  - DiffRequestInMemoryRepository: A simple implementation using a HashMap to store data.
+ *      Its intended to be used for test purposes.
  */
 public interface DiffRequestRepository {
 

@@ -1,7 +1,7 @@
 package com.giulianobortolassi.waes.diff;
 
 import com.giulianobortolassi.waes.comparator.Base64Comparator;
-import com.giulianobortolassi.waes.comparator.ComparasionResult;
+import com.giulianobortolassi.waes.comparator.ComparisionResult;
 
 import org.junit.Test;
 
@@ -16,17 +16,18 @@ public class DiffRequestTest {
 
     @Test
     public void testDiffMatchRequest(){
-        /* Creating a mock class to isolate the tests. Comparator will have a separated test to
-         * check it inner working.
-         * As this test is pretty simple, I decided to no use an Mock framework like Mockito or
+        /* Creating a mock class to isolate the tests. Base64Comparator implementation will have a
+         * separated test to check it inner working.
+         * As this test is pretty simple, I decided to do not use a Mock framework like Mockito or
          * other ones. If it get complex, we can replace the inner class with an Mockito proxy.
          */
-        class MyMockComparator extends Base64Comparator {
+        Base64Comparator mockComparator = new Base64Comparator(){
             @Override
-            public ComparasionResult compare(String left, String right) {
-                return new ComparasionResult(true, ComparasionResult.ResultType.MATCH,-1,-1,null);
+            public ComparisionResult compare(String left, String right) {
+                return new ComparisionResult(true, ComparisionResult.ResultType.MATCH,-1,-1,null);
             }
-        }
+        };
+
 
         DiffRequest request = new DiffRequest();
         request.setLeft(document_1_base64);
@@ -34,7 +35,7 @@ public class DiffRequestTest {
 
         DiffResponse result = null;
         try {
-            result = request.getResult(new MyMockComparator());
+            result = request.getResult(mockComparator);
         } catch (Exception e) {
             fail("No exception expected. Got one. " + e.getMessage() );
         }
@@ -44,15 +45,14 @@ public class DiffRequestTest {
 
     @Test
     public void testDiffDoesNotMatchRequest(){
-        class MyMockComparator extends Base64Comparator {
+
+        Base64Comparator mockComparator = new Base64Comparator(){
             @Override
-            public ComparasionResult compare(String left, String right) {
-                return new ComparasionResult(false, ComparasionResult.ResultType.CONTENT_MISMATCH,
+            public ComparisionResult compare(String left, String right) {
+                return new ComparisionResult(false, ComparisionResult.ResultType.CONTENT_MISMATCH,
                         10,20,new char[document_1_base64.length()]);
             }
-        }
-
-        MyMockComparator comparator = new MyMockComparator();
+        };
 
         DiffRequest request = new DiffRequest();
         request.setLeft(document_1_base64);
@@ -61,13 +61,13 @@ public class DiffRequestTest {
         DiffResponse result = null;
 
         try {
-            result = request.getResult( comparator );
+            result = request.getResult( mockComparator );
         } catch (Exception e) {
             fail("No exception expected. Got one. " + e.getMessage() );
         }
         assertNotNull("A result message is expected.", result );
 
-        ComparasionResult compare = comparator.compare(document_1_base64, document_2_base64);
+        ComparisionResult compare = mockComparator.compare(document_1_base64, document_2_base64);
         String expectedMessage =
                 String.format(DiffRequest.CONTENT_MISMATCH_MESSAGE,
                         compare.getMismatchOffset(),
@@ -78,13 +78,13 @@ public class DiffRequestTest {
 
     @Test
     public void testDiffWrongSizeRequest(){
-        class MyMockComparator extends Base64Comparator {
+        Base64Comparator mockComparator = new Base64Comparator(){
             @Override
-            public ComparasionResult compare(String left, String right) {
-                return new ComparasionResult(false, ComparasionResult.ResultType.SIZE_MISMATCH,
+            public ComparisionResult compare(String left, String right) {
+                return new ComparisionResult(false, ComparisionResult.ResultType.SIZE_MISMATCH,
                         -1,-1,null);
             }
-        }
+        };
 
         DiffRequest request = new DiffRequest();
         request.setLeft(document_1_base64);
@@ -92,7 +92,7 @@ public class DiffRequestTest {
 
         DiffResponse result = null;
         try {
-            result = request.getResult( new MyMockComparator() );
+            result = request.getResult( mockComparator );
         } catch ( Exception e ) {
             fail("No exception expected. Got one. " + e.getMessage() );
         }
@@ -103,10 +103,12 @@ public class DiffRequestTest {
     @Test
     public void testNoRepeatProccessingIfDone(){
 
-        /**
-         *  Mock class to compare "cached" comparision
+        /*
+         *  Mock class to compare "cached" comparision. This case needed a concrete class as
+         * it tests some inner working that depends on comparator calls. Again, it is so simple I
+         * do not need a extra mock framework.
          */
-        class MyMockComparator extends Base64Comparator {
+        class MyMockComparator implements Base64Comparator {
             int comparatorRunsCount = 0;
 
             public int getComparatorRunsCount() {
@@ -114,9 +116,10 @@ public class DiffRequestTest {
             }
 
             @Override
-            public ComparasionResult compare(String left, String right) {
+            public ComparisionResult compare(String left, String right) {
                 comparatorRunsCount++;
-                return super.compare(left, right);
+                return new ComparisionResult(false, ComparisionResult.ResultType.SIZE_MISMATCH,
+                        -1,-1,null);
             }
         }
 
@@ -155,20 +158,20 @@ public class DiffRequestTest {
 
     @Test
     public void testDiffBadRequest(){
-        class MyMockComparator extends Base64Comparator {
+        Base64Comparator mockComparator = new Base64Comparator() {
             @Override
-            public ComparasionResult compare(String left, String right) {
+            public ComparisionResult compare(String left, String right) {
                 fail("the compare method must no be called! It must fail before that");
                 return null;
             }
-        }
+        };
 
         //Do not set the parameters and try to call getResult.
         DiffRequest request = new DiffRequest();
 
         DiffResponse result = null;
         try {
-            result = request.getResult( new MyMockComparator() );
+            result = request.getResult( mockComparator );
         } catch ( Exception e ) {
             assertEquals( e.getMessage(), DiffRequest.ILLEGAL_STATE_MESSAGE );
         }

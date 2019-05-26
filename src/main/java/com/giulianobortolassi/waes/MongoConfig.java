@@ -8,6 +8,12 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 import org.springframework.core.env.Environment;
 
+/**
+ * Basic MongoDB configuration. It will only be enable if spring profile `mongodb` is active.
+ *
+ * To activate the profile start with '--spring.profiles.active=mongodb' command line parameter
+ *
+ */
 @Profile("mongodb")
 @Configuration
 public class MongoConfig extends MongoAutoConfiguration  {

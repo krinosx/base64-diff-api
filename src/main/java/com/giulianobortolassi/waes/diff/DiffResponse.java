@@ -1,5 +1,10 @@
 package com.giulianobortolassi.waes.diff;
 
+
+/**
+ * It represents a simple class to be sent as a response for a comparision request. Spring Web framework
+ * make it easier to marshal/unmarshal simple POJO objects, so I use this one to generate the JSON response.
+ */
 public class DiffResponse {
 
     String comparisionStatus;

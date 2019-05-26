@@ -2,9 +2,19 @@ package com.giulianobortolassi.waes.diff;
 
 
 import com.giulianobortolassi.waes.comparator.Base64Comparator;
-import com.giulianobortolassi.waes.comparator.ComparasionResult;
+import com.giulianobortolassi.waes.comparator.ComparisionResult;
 import org.springframework.data.annotation.Id;
 
+/**
+ * This object represents a request to compare two documents (base64 encoded data). The comparision logic is delegated
+ * to a Base64Comparator object. The result is cached locally in order to reduce the amount of processing needed.
+ *
+ * The return messages were declared 'public' ir order to make testing easier.
+ * Id attribute is annotated to enable persistence using SpringData API.
+ *
+ *
+ *
+ */
 public class DiffRequest {
     @Id
     private String id;
@@ -17,7 +27,7 @@ public class DiffRequest {
     // State control variable
     private boolean isEvaluated = false;
 
-    // Return message
+    // Return messages
     public static final String MATCH_MESSAGE = "Documents match!";
     public static final String SIZE_MISMATCH_MESSAGE = "Document size does not match.";
     public static final String CONTENT_MISMATCH_MESSAGE = "Content does not match. Difference start: %d and keep for %d characters ";
@@ -52,13 +62,21 @@ public class DiffRequest {
         isEvaluated = false;
     }
 
-    public DiffResponse getResult(Base64Comparator comparator) throws Exception {
+    /**
+     * Compare DiffRequest.left and DiffRequest.right Strings using the given Base64Comparator object.
+     *
+     * - It was choose to delegate the comparision to a external object so its possible to replace the implementation
+     * by extending the {@link Base64Comparator}.
+     *
+     * @param comparator A Base64Comparator object responsible to compare both Strings.
+     * @return A {@link DiffResponse} representing the request status.
+     */
+    public DiffResponse getResult(Base64Comparator comparator) {
         // compare
-
         if(!isEvaluated) {
             if( left != null && right != null ) {
 
-                ComparasionResult compareResult = comparator.compare(this.left, this.right);
+                ComparisionResult compareResult = comparator.compare(this.left, this.right);
 
                 if( compareResult.isMatch() ) {
                     // build the response
@@ -66,7 +84,7 @@ public class DiffRequest {
                     this.resultMessage = MATCH_MESSAGE;
 
 
-                } else if( compareResult.getResultType() == ComparasionResult.ResultType.SIZE_MISMATCH){
+                } else if( compareResult.getResultType() == ComparisionResult.ResultType.SIZE_MISMATCH){
                     this.resultStatus = "SIZE_MISMATCH";
                     this.resultMessage = SIZE_MISMATCH_MESSAGE;
                 } else {
