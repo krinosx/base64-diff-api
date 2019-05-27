@@ -20,7 +20,7 @@ $ mvn package
 ```
 The above instructions will build an executable jar inside the <project_home>/target folder. In order to start the application run
 ```sh
-$ mvn spring-boot:run
+$ mvn spring-boot:run -Dspring.profiles.active=mongodb
 ```
 It will start an embedded Apache Tomcat server listening on 8080 port.
 
@@ -35,17 +35,16 @@ It will start an embedded Apache Tomcat server listening on 8080 port.
 # Documentation
 In order to read the full documentation check the /docs folder on project structure. In this folder you can find:
 * Architectural documents with diagrams and decisions to make the application scalable.
-* How to extend and improve parts of the application
 * Improvement suggestions
 
 
 ### Extra - Running as a Docker Image
 If you dont have Maven or Java installed, but are used to deal with docker images, the following instructions can be used to get running ASAP.
 ```sh
-$ docker pull giulianobortolassi/waes-api:latest
-$ docker run -d -p {LOCAL_PORT}:8080
+$ docker pull giulianobortolassi/waes:base64-diff-api
+$ docker run -d -e APP_PROFILE=mongodb -p 9090:8080 giulianobortolassi/waes:base64-diff-api
 ```
-It will download and start a container with the embedded server listening on {LOCAL_PORT}. Is possible to test the API using a local REST client pointing to http://localhost:{LOCAL_PORT}/.
+It will download and start a container with the embedded server listening on {LOCAL_PORT}. Is possible to test the API using a local REST client pointing to http://localhost:{LOCAL_PORT}/. The APP_PROFILE values must be 'mongdb' or 'default'
 
 ### Extra - AWS hosted
 
