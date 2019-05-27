@@ -20,9 +20,14 @@ $ mvn package
 ```
 The above instructions will build an executable jar inside the <project_home>/target folder. In order to start the application run
 ```sh
+$ mvn spring-boot:run
+```
+It will start an embedded Apache Tomcat server listening on 8080 port and use default profile. The default profile will use a local in memory storage.
+
+To deploy in a production environment or to use this app as scalable web app use the mongodb profile.
+```sh
 $ mvn spring-boot:run -Dspring.profiles.active=mongodb
 ```
-It will start an embedded Apache Tomcat server listening on 8080 port.
 
 ## Endpoints Description
 
