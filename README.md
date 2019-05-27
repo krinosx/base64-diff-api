@@ -47,3 +47,8 @@ $ docker run -d -p {LOCAL_PORT}:8080
 ```
 It will download and start a container with the embedded server listening on {LOCAL_PORT}. Is possible to test the API using a local REST client pointing to http://localhost:{LOCAL_PORT}/.
 
+### Extra - AWS hosted
+
+I hosted one instance of this application on AWS. It can be tested using the following link:
+
+    http://ec2-54-202-207-52.us-west-2.compute.amazonaws.com:8080/v1/diff/{ID}
