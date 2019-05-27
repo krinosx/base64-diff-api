@@ -42,7 +42,7 @@ In order to read the full documentation check the /docs folder on project struct
 If you dont have Maven or Java installed, but are used to deal with docker images, the following instructions can be used to get running ASAP.
 ```sh
 $ docker pull giulianobortolassi/waes:base64-diff-api
-$ docker run -d -e APP_PROFILE=mongodb -p 9090:8080 giulianobortolassi/waes:base64-diff-api
+$ docker run -d -e APP_PROFILE=mongodb -p {LOCAL_PORT}:8080 giulianobortolassi/waes:base64-diff-api
 ```
 It will download and start a container with the embedded server listening on {LOCAL_PORT}. Is possible to test the API using a local REST client pointing to http://localhost:{LOCAL_PORT}/. The APP_PROFILE values must be 'mongdb' or 'default'
 
