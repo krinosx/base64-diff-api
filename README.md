@@ -29,6 +29,8 @@ To deploy in a production environment or to use this app as scalable web app use
 $ mvn spring-boot:run -Dspring.profiles.active=mongodb
 ```
 
+OBS: The above procedures are not tested with Java11. Some libraries may not work and I encourage to use Java 8 for the tests. If its not possible to use Java 8, use the container version to run tests (check the end of this file to get the instructions how to run the container version).
+
 ## Endpoints Description
 
 | Endpoint | Method | curl command | Description |
