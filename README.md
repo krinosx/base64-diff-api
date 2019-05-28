@@ -14,7 +14,7 @@ This is the result of the assignment given.
 Make sure you have the above software installed and configured in your machine. Execute the following to get the code and build the software.
 
 ```sh
-$ git clone https://github.com/krinosx/marketdata_parser.git
+$ git clone https://github.com/krinosx/base64-diff-api.git
 $ cd base64-diff-api
 $ mvn package
 ```
