@@ -101,7 +101,7 @@ public class DiffRequestTest {
     }
 
     @Test
-    public void testNoRepeatProccessingIfDone(){
+    public void testNoRepeatProcessingIfDone(){
 
         /*
          *  Mock class to compare "cached" comparision. This case needed a concrete class as

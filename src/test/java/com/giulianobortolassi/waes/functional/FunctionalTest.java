@@ -108,7 +108,7 @@ public class FunctionalTest {
     }
 
     @Test
-    public void testNoContentRighttSide() throws Exception {
+    public void testNoContentRightSide() throws Exception {
         int TEST_ID = 4;
         server.perform( put("/v1/diff/{id}/right", TEST_ID) )
                 .andExpect(status().isBadRequest())

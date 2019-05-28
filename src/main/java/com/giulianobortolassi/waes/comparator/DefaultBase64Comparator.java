@@ -10,9 +10,9 @@ public class DefaultBase64Comparator implements Base64Comparator {
      * both and assume that the differences, or mismatches will be from the right data.
      *
      *
-     * @param left
-     * @param right
-     * @return
+     * @param left left side data to be compared
+     * @param right right side data to be compared
+     * @return A {@link ComparisionResult} object
      */
     public ComparisionResult compare(String left, String right) {
 

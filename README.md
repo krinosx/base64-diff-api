@@ -4,7 +4,7 @@ This is the result of the assignment given.
 
 ## Usage
 
-### Requirments
+### Requirements
 
  Application was developed using java 1.8, maven as a build tool and versioned using github.io.
  - Maven (https://maven.apache.org/)
@@ -40,7 +40,7 @@ In order to read the full documentation check the /docs folder on project struct
 
 
 ### Extra - Running as a Docker Image
-If you dont have Maven or Java installed, but are used to deal with docker images, the following instructions can be used to get running ASAP.
+If you do not have Maven or Java installed, but are used to deal with docker images, the following instructions can be used to get running ASAP.
 ```sh
 $ docker pull giulianobortolassi/waes-api:latest
 $ docker run -d -p {LOCAL_PORT}:8080
