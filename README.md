@@ -1,6 +1,6 @@
 # WAES - Scalable Web Api
 
-This is the result of the assignment given.
+This is the result of the given assignment.
 
 ## Usage
 
