@@ -1,4 +1,4 @@
-# WAES - Scalable Web Api
+# Scalable Web Api
 
 This is the result of the given assignment.
 
