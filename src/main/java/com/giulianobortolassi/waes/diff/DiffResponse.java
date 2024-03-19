@@ -10,6 +10,7 @@ public class DiffResponse {
     String comparisionStatus;
     String message;
 
+
     public DiffResponse(String comparisionStatus, String message) {
         this.comparisionStatus = comparisionStatus;
         this.message = message;

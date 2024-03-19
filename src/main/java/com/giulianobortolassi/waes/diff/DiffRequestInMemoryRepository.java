@@ -55,6 +55,7 @@ public class DiffRequestInMemoryRepository implements DiffRequestRepository {
         return request;
     }
 
+
     /**
      * Get a DiffRequest based on given ID. If no request is found, return null
      * @param id DiffRequest id to search

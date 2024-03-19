@@ -19,3 +19,4 @@ public interface Base64Comparator {
      */
     ComparisionResult compare(String left, String right);
 }
+

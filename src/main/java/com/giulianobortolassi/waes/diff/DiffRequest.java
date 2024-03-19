@@ -33,7 +33,6 @@ public class DiffRequest {
     public static final String CONTENT_MISMATCH_MESSAGE = "Content does not match. Difference start: %d and keep for %d characters ";
     public static final String ILLEGAL_STATE_MESSAGE = "Left and Right side must be set prior to call getResult()!";
 
-
     public DiffRequest(){}
 
     public String getId() {

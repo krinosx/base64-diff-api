@@ -1,21 +1,20 @@
 package com.giulianobortolassi.waes.functional;
 
 import com.giulianobortolassi.waes.diff.DiffRequest;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtensionContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 
-import static org.hamcrest.Matchers.*;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.hamcrest.Matchers.containsString;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 
-@RunWith(SpringRunner.class)
-@SpringBootTest()
+@SpringBootTest
 @AutoConfigureMockMvc
 public class FunctionalTest {
 
@@ -32,6 +31,7 @@ public class FunctionalTest {
         int TEST_ID = 1;
         server.perform( put("/v1/diff/{id}/right", TEST_ID).content("Simple Document") )
                 .andExpect(status().isOk());
+
     }
 
     @Test

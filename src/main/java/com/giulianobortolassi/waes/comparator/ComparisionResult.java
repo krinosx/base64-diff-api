@@ -7,6 +7,7 @@ package com.giulianobortolassi.waes.comparator;
  */
 public class ComparisionResult {
 
+
     /**
      * Indicates if the results Match or do not Match
      */

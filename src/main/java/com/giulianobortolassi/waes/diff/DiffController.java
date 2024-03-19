@@ -29,7 +29,7 @@ public class DiffController {
      * @param base64data some text plain data.
      * @return a HTTP 200 if everything went right. An error if something strange happens.
      */
-    @RequestMapping(method = RequestMethod.PUT, value = "/left")
+    @RequestMapping(method = RequestMethod.PUT, value = "/left", produces = "application/json;charset=UTF-8" )
     public  ResponseEntity<DiffResponse> leftSide( @PathVariable("id") String id, @RequestBody(required = false) String base64data ){
 
         if( id == null || base64data == null || base64data.isEmpty() ){
@@ -64,7 +64,7 @@ public class DiffController {
      * @param base64data some text plain data.
      * @return a HTTP 200 if everything went right. An error if something strange happens.
      */
-    @RequestMapping(method = RequestMethod.PUT, value = "/right")
+    @RequestMapping(method = RequestMethod.PUT, value = "/right", produces = "application/json;charset=UTF-8")
     public ResponseEntity<DiffResponse> rightSide( @PathVariable("id") String id, @RequestBody(required = false) String base64data ){
 
         if( id == null || base64data == null || base64data.isEmpty() ){
@@ -98,7 +98,7 @@ public class DiffController {
      * @param id the DiffRequest id.
      * @return The result of comparision or an error message.
      */
-    @RequestMapping(method = RequestMethod.GET)
+    @RequestMapping(method = RequestMethod.GET, produces = "application/json;charset=UTF-8")
     public ResponseEntity<DiffResponse> compare(@PathVariable("id") String id) {
 
 
